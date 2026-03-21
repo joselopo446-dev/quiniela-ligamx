@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quiniela Liga MX - Registra tus predicciones para la jornada de la Liga MX y gana el pozo acumulado.">
+    <title>Quiniela Treebolito — Clausura 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a class="logo" href="#">
+                <img src="img/treebolito1.png" alt="Treebolito" class="logo-img">
+                <div class="logo-text">Quiniela<span>Treebolito</span></div>
+            </a>
+            <div class="pool-display" id="poolDisplay">
+                <span class="pool-icon">💰</span>
+                <div>
+                    <div class="pool-amount" id="poolAmount">$0</div>
+                    <div class="pool-label" id="poolLabel">0 participantes</div>
+                </div>
+            </div>
+            <nav class="nav">
+                <button class="nav-toggle" id="navToggle">☰</button>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><button class="nav-link" data-modal="reglas">📋 Reglas</button></li>
+                    <li class="nav-item"><button class="nav-link" data-modal="resultadosAnteriores">📊 Resultados</button></li>
+                    <li class="nav-item"><button class="nav-link" data-modal="resultados">🏆 Jornada Actual</button></li>
+                    <li class="nav-item"><button class="nav-link" data-modal="buscar">🔍 Buscar</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="lockout-banner" id="lockoutBanner">
+            <span class="lock-icon">🔒</span>
+            <div class="lock-text">
+                <h4>Registro Cerrado</h4>
+                <p>El registro de quinielas se cerró 1 hora antes del primer partido.</p>
+            </div>
+        </div>
+
+        <div class="jornada-title">
+            <h2 id="jornadaTitle">Jornada 1 — Liga MX Clausura 2026</h2>
+            <p class="subtitle" id="jornadaSubtitle">Selecciona tus predicciones para cada partido</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="card" id="quinielaCard">
+                <div class="card-header">
+                    <h3>📝 Tu Quiniela</h3>
+                    <span id="matchCount">0/9 seleccionados</span>
+                </div>
+                <div class="card-body" id="matchesList"></div>
+                <div class="registration-section">
+                    <h4>📌 Registrar Quiniela</h4>
+                    <div class="form-group">
+                        <label for="participantName">Nombre del participante</label>
+                        <input type="text" class="form-input" id="participantName" placeholder="Escribe tu nombre completo" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="participantWhatsapp">WhatsApp</label>
+                        <input type="tel" class="form-input" id="participantWhatsapp" placeholder="Ej: 5512345678">
+                    </div>
+                    <button class="btn-primary" id="btnRegistrar" disabled onclick="registerQuiniela(event)">Registrar y Pagar — $20 MXN</button>
+                    <p class="cost-info">Costo: <strong>$20 MXN</strong> · 95% va al premio acumulado</p>
+                </div>
+            </div>
+
+            <div class="results-panel">
+                <div class="card">
+                    <div class="card-header"><h3>💰 Premio Acumulado</h3></div>
+                    <div class="card-body">
+                        <div class="premio-display">
+                            <div class="premio-monto" id="premioAcumulado">$0 MXN</div>
+                            <div class="premio-detalle">Premio para el/los ganador(es)</div>
+                        </div>
+                        <div class="premio-info">
+                            <div class="premio-row"><span>Premio acumulado:</span><strong id="premioMonto">$0 MXN</strong></div>
+                            <div class="premio-row"><span>Participantes:</span><strong id="participantesCount">0</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:16px;">
+                    <div class="card-header"><h3>👥 Quinielas Registradas</h3></div>
+                    <div class="card-body" id="registeredList">
+                        <p style="color:var(--text-muted);font-size:0.85rem;" id="noRegistrations">No hay quinielas registradas aún.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REGLAS -->
+    <div class="modal-overlay" id="modal-reglas">
+        <div class="modal">
+            <div class="modal-header"><h3>📋 Reglamento</h3><button class="modal-close" data-close-modal>✕</button></div>
+            <div class="modal-body">
+                <h4>💰 Costo y Premio</h4>
+                <ul>
+                    <li>El costo por quiniela es de <strong>$20 MXN</strong></li>
+                    <li><strong>$19 MXN</strong> van al premio acumulado (95%)</li>
+                    <li><strong>$1 MXN</strong> es la ganancia del administrador (5%)</li>
+                    <li>El premio se reparte entre el/los ganador(es) con más aciertos</li>
+                </ul>
+                <h4>📝 Pronósticos</h4>
+                <ul>
+                    <li>Cada quiniela debe tener <strong>9 partidos</strong> obligatoriamente</li>
+                    <li><strong>L</strong> = Gana el equipo Local</li>
+                    <li><strong>E</strong> = Empate</li>
+                    <li><strong>V</strong> = Gana el equipo Visitante</li>
+                </ul>
+                <h4>🏆 Ganadores</h4>
+                <ul>
+                    <li>Gana el participante con el <strong>mayor número de aciertos</strong></li>
+                    <li>Si hay <strong>empate</strong>, el premio se divide en partes iguales</li>
+                    <li>El premio se entrega por <strong>transferencia bancaria</strong></li>
+                    <li>Te contactaremos por <strong>WhatsApp</strong></li>
+                </ul>
+                <h4>⏰ Horarios</h4>
+                <ul>
+                    <li>Las inscripciones <strong>cierran 1 hora</strong> antes del primer partido</li>
+                    <li>Los resultados se actualizan <strong>cada 15 minutos</strong></li>
+                    <li>La clasificación se muestra al <strong>finalizar la jornada</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RESULTADOS ANTERIORES -->
+    <div class="modal-overlay" id="modal-resultadosAnteriores">
+        <div class="modal">
+            <div class="modal-header"><h3>📊 Resultados Anteriores</h3><button class="modal-close" data-close-modal>✕</button></div>
+            <div class="modal-body" id="prevResultsContent">
+                <p style="text-align:center;color:var(--text-muted);">No hay jornadas finalizadas aún</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RESULTADOS JORNADA ACTUAL -->
+    <div class="modal-overlay" id="modal-resultados">
+        <div class="modal">
+            <div class="modal-header"><h3>🏆 Resultados de la Jornada</h3><button class="modal-close" data-close-modal>✕</button></div>
+            <div class="modal-body" id="currentResultsContent"></div>
+        </div>
+    </div>
+
+    <!-- MODAL BUSCAR -->
+    <div class="modal-overlay" id="modal-buscar">
+        <div class="modal">
+            <div class="modal-header"><h3>🔍 Buscar Quiniela</h3><button class="modal-close" data-close-modal>✕</button></div>
+            <div class="modal-body">
+                <p style="margin-bottom:16px;color:var(--text-secondary);">Ingresa el folio o ID de tu quiniela.</p>
+                <div class="form-group">
+                    <label for="searchId">Folio o ID de la quiniela</label>
+                    <input type="text" class="form-input" id="searchId" placeholder="Ej: QL-2026-0001">
+                </div>
+                <button class="btn-secondary" id="btnBuscar" style="width:100%;margin-bottom:16px;">🔍 Buscar</button>
+                <div id="searchResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PAGO -->
+    <div class="modal-overlay" id="modal-pago">
+        <div class="modal">
+            <div class="modal-header"><h3>💳 Confirmar Pago</h3><button class="modal-close" data-close-modal>✕</button></div>
+            <div class="modal-body">
+                <div class="payment-summary">
+                    <span>Quiniela Jornada</span>
+                    <span class="payment-amount">$20.00 MXN</span>
+                </div>
+                <div class="transfer-instructions">
+                    <h4>Resumen</h4>
+                    <div class="transfer-tips">
+                        <div class="tip-item">👤 Participante: <strong id="pagoNombre">-</strong></div>
+                        <div class="tip-item">📱 WhatsApp: <strong id="pagoWhatsapp">-</strong></div>
+                        <div class="tip-item">🎯 Pronósticos: <strong id="pagoPronosticos">9 partidos</strong></div>
+                    </div>
+                </div>
+                <div class="transfer-instructions" style="margin-top:16px;">
+                    <h4>Confirmar tu participación</h4>
+                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">Presiona el botón para confirmar tu registro y participar.</p>
+                    <div class="transfer-tips">
+                        <div class="tip-item">🎉 Tu quiniela será registrada</div>
+                        <div class="tip-item">🏆 Podrás ganar el premio acumulado</div>
+                        <div class="tip-item">📱 Te notificaremos si ganas</div>
+                    </div>
+                </div>
+                <div class="transfer-confirm">
+                    <button class="btn-pay" id="btnConfirmarPago" onclick="processPayment()">
+                        <span class="btn-pay-text">✅ Confirmar y Pagar — $20.00 MXN</span>
+                        <span class="btn-pay-loading" style="display:none;"><span class="spinner"></span> Procesando...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS TOAST -->
+    <div class="success-toast" id="successToast">
+        <h4>✅ ¡Quiniela Registrada!</h4>
+        <p>Tu ID único:</p>
+        <div class="folio-code" id="folioDisplay">QL-2026-0001</div>
+        <p class="toast-id-label">Guarda este ID para reclamar tu premio</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

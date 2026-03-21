@@ -1,0 +1,9 @@
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 3 DAY) WHERE id = 1;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 3 DAY) WHERE id = 2;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 3 DAY) WHERE id = 3;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 3 DAY) WHERE id = 4;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 4 DAY) WHERE id = 5;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 4 DAY) WHERE id = 6;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 4 DAY) WHERE id = 7;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 4 DAY) WHERE id = 8;
+UPDATE partidos SET fecha_hora = DATE_ADD(NOW(), INTERVAL 4 DAY) WHERE id = 9;
