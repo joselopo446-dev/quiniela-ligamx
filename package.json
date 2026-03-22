@@ -1,0 +1,43 @@
+{
+  "name": "quiniela-ligamx-backend",
+  "version": "1.0.0",
+  "description": "Backend para Quiniela Liga MX con Node.js, Express, MySQL, Stripe y API-Football",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "cron": "node backend/cron.js",
+    "postinstall": "npm run db:setup || true",
+    "db:setup": "node -e \"const {initDatabase}=require('./backend/database');initDatabase().then(()=>console.log('DB ready')).catch(e=>console.log('DB setup skipped:',e.message));\""
+  },
+  "keywords": [
+    "quiniela",
+    "liga-mx",
+    "football",
+    "stripe",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.5",
+    "node-cron": "^3.0.3",
+    "stripe": "^14.10.0",
+    "twilio": "^4.20.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
